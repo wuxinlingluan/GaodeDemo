@@ -46,7 +46,7 @@ public class MainActivity extends CheckPermissionsActivity implements INaviInfoC
                 Poi epoi = new Poi("天安门", epoint, "");
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), new AmapNaviParams(epoi), MainActivity.this);
                 break;
-            case R.id.bt_gaode_out://百度
+            case R.id.bt_gaode_out://打开外部APP
                 if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
                     AMapUtil.goToNaviActivity(this, "test", null, "39.90960456049752", "116.3972282409668", "1", "2");
                 }
