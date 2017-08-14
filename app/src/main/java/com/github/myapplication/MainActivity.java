@@ -42,13 +42,13 @@ public class MainActivity extends CheckPermissionsActivity implements INaviInfoC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_gaode_inner://高德
-                LatLng epoint = new LatLng(36, 117);
-                Poi epoi = new Poi("粮仓", epoint, "");
+                LatLng epoint = new LatLng(39.90960456049752, 116.3972282409668);
+                Poi epoi = new Poi("天安门", epoint, "");
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), new AmapNaviParams(epoi), MainActivity.this);
                 break;
             case R.id.bt_gaode_out://百度
                 if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
-                    AMapUtil.goToNaviActivity(this, "test", null, "34.264642646862", "108.95108518068", "1", "2");
+                    AMapUtil.goToNaviActivity(this, "test", null, "39.90960456049752", "116.3972282409668", "1", "2");
                 }
                 break;
         }
