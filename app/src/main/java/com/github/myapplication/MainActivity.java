@@ -1,11 +1,9 @@
 package com.github.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,10 +25,11 @@ import butterknife.OnClick;
 
 public class MainActivity extends CheckPermissionsActivity implements INaviInfoCallback {
 
-    @InjectView(R.id.bt_gaode)
-    Button btGaode;
-    @InjectView(R.id.bt_baidu)
-    Button btBaidu;
+
+    @InjectView(R.id.bt_gaode_inner)
+    Button btGaodeInner;
+    @InjectView(R.id.bt_gaode_out)
+    Button btBaiduOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +38,18 @@ public class MainActivity extends CheckPermissionsActivity implements INaviInfoC
         ButterKnife.inject(this);
     }
 
-    @OnClick({R.id.bt_gaode, R.id.bt_baidu})
+    @OnClick({R.id.bt_gaode_inner, R.id.bt_gaode_out})
     public void onViewClicked(View view) {
-        Intent intent=new Intent();
         switch (view.getId()) {
-            case R.id.bt_gaode://高德
-                LatLng epoint = new LatLng(36.855278, 117.880211);
+            case R.id.bt_gaode_inner://高德
+                LatLng epoint = new LatLng(36, 117);
                 Poi epoi = new Poi("粮仓", epoint, "");
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), new AmapNaviParams(epoi), MainActivity.this);
                 break;
-            case R.id.bt_baidu://百度
-                Log.i("11111111111",sHA1(getBaseContext()).toString());
+            case R.id.bt_gaode_out://百度
+                if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
+                    AMapUtil.goToNaviActivity(this, "test", null, "34.264642646862", "108.95108518068", "1", "2");
+                }
                 break;
         }
     }
@@ -72,7 +72,7 @@ public class MainActivity extends CheckPermissionsActivity implements INaviInfoC
                 hexString.append(":");
             }
             String result = hexString.toString();
-            return result.substring(0, result.length()-1);
+            return result.substring(0, result.length() - 1);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
