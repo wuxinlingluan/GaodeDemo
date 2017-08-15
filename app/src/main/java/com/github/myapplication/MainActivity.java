@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Poi;
@@ -49,12 +50,16 @@ public class MainActivity extends CheckPermissionsActivity implements INaviInfoC
             case R.id.bt_gaode_out://打开外部APP
                 if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
                     AMapUtil.goToNaviActivity(this, "test", null, "39.90960456049752", "116.3972282409668", "1", "2");
+                } else {
+                    Toast.makeText(this, "未安装高德导航", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
 
-
+    /*
+    * 获取app sha值
+    * */
     public static String sHA1(Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(
